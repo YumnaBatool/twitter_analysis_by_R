@@ -93,3 +93,20 @@ R CODE:
 [[6]]
 [1] "kristian_ricky: #kostum #futsal #Mahanaim #United #MU #cup #sinode #gkj #7 #kr [pic] â€” https://t.co/BLFexQcX9Y"
 
+TEXT ANALYSIS in R:
+1- Install packages NLP, tm, SnowballC
+2- Transformin text
+  > df <- do.call("rbind", lapply(Ronaldo, as.data.frame)) #converting to data frame
+  > myCorpus <- Corpus(VectorSource(df$text)) # corpus forming
+  > myCorpus <- tm_map(myCorpus, tolower) 
+  > myCorpus <- tm_map(myCorpus, removePunctuation)
+  > myCorpus <- tm_map(myCorpus, removeNumbers)
+  > removeURL <- function(x) gsub("http[[:alnum:]]*", "", x)
+  > myCorpus <- tm_map(myCorpus, removeURL)
+  > myStopwords <- c(stopwords('english'), "available", "via")
+  > myStopwords <- setdiff(myStopwords, c("r", "big"))
+  > myCorpus <- tm_map(myCorpus, removeWords, myStopwords)
+3- Stemming Words
+  > myCorpusCopy <- myCorpus
+  > myCorpus <- tm_map(myCorpus, stemDocument)
+  > myCorpus <- tm_map(myCorpus, stemCompletion, dictionary=crude)
