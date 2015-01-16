@@ -89,9 +89,10 @@ TEXT ANALYSIS in R:
   > myCorpus <- tm_map(myCorpus,stripWhitespace)
   > myCorpus <- tm_map(myCorpus,removePunctuation);
   > matrix_terms <- DocumentTermMatrix(myCorpus)
-  > myTdm <- TermDocumentMatrix(corpus, control=list(minWordLength=1))
+  > myTdm <- TermDocumentMatrix(myCorpus, control=list(minWordLength=1))
   > m <- as.matrix(myTdm)
   > wordFreq <- sort(rowSums(m), decreasing=TRUE)
   > set.seed(375)
   > grayLevels <- gray( (wordFreq+10) / (max(wordFreq)+10) )
   > wordcloud(words=names(wordFreq), freq=wordFreq, min.freq=3, random.order=F, colors=grayLevels)
+
